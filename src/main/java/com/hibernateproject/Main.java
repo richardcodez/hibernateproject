@@ -16,8 +16,6 @@ public class Main {
         l1.setBrand("Asus");
         l1.setModel("Rog");
         l1.setRam(16);
-        
-        // comment
 
         Laptop l2 = new Laptop();
         l2.setLid(2);
