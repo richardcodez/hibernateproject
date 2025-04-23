@@ -1,44 +1,29 @@
 package com.hibernateproject;
 
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
-
-import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 public class Main {
     public static void main(String[] args) {
-        // Laptop l1 = new Laptop();
-        // l1.setLid(4);
-        // l1.setBrand("Asus");
-        // l1.setModel("Strix");
-        // l1.setRam(32);
 
         SessionFactory sf = new Configuration()
-                            .addAnnotatedClass(com.hibernateproject.Alien.class)
                             .addAnnotatedClass(com.hibernateproject.Laptop.class)
                             .configure()
                             .buildSessionFactory();
 
         Session session = sf.openSession();
 
-        // select * from laptop where ram=32
-        // HQL
-        // from Laptop where ram=32
+        // EAGER loading use:
+        // session.get(Laptop.class, 2)
 
-        String brand = "Asus";
-        Query query = session.createQuery("select brand, model from Laptop where brand like ?1");
-        query.setParameter(1, brand);
-        List<Object[]> laptops = query.getResultList();
+        // LAZY loading:
+        // use: session.load(Laptop.class, 2)
+        // OR use: session.byId(Laptop.class).getReference(2)        
 
-        // Laptop l1 = session.get(Laptop.class, 3);
-        for(Object[] laptop : laptops) {
-            System.out.println((String)laptop[0] + ", " + laptop[1]);
-        }
-        // System.out.println(laptops);
+        Laptop laptop = session.byId(Laptop.class).getReference(2);
+        System.out.println(laptop);
 
         session.close();
         sf.close();
