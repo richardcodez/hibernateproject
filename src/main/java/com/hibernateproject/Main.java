@@ -15,17 +15,17 @@ public class Main {
 
         Session session = sf.openSession();
 
-        // EAGER loading use:
-        // session.get(Laptop.class, 2)
-
-        // LAZY loading:
-        // use: session.load(Laptop.class, 2)
-        // OR use: session.byId(Laptop.class).getReference(2)        
-
-        Laptop laptop = session.byId(Laptop.class).getReference(2);
-        System.out.println(laptop);
+        Laptop l1 = session.get(Laptop.class, 2);
+        System.out.println(l1);
+        
 
         session.close();
+
+        Session s1 = sf.openSession();
+        Laptop l2 = s1.get(Laptop.class, 2);
+        System.out.println(l2);
+
+        s1.close();
         sf.close();
 
     }
