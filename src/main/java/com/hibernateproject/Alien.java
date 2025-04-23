@@ -3,8 +3,9 @@ package com.hibernateproject;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Alien {
@@ -13,7 +14,7 @@ public class Alien {
     private int aid;
     private String aname;
     private String tech;
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Laptop> laptops;
     
     public int getAid() {
